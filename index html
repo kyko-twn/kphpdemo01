@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kapook New Homepage Layout</title>
+  <style>
+    :root {
+      --green: #10a63a;
+      --green-dark: #08752a;
+      --green-soft: #e9f8ee;
+      --ink: #1f2937;
+      --muted: #667085;
+      --line: #e5e7eb;
+      --bg: #f5f7f8;
+      --white: #ffffff;
+      --yellow: #fff6d7;
+      --orange: #fff0e3;
+      --pink: #ffeaf2;
+      --blue: #e9f2ff;
+      --purple: #f2eaff;
+      --teal: #e7f8f5;
+      --red: #ffecec;
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --shadow: 0 10px 28px rgba(16, 24, 40, 0.08);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .utility-bar {
+      background: var(--green-dark);
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .utility-inner {
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .ticker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .ticker::-webkit-scrollbar { display: none; }
+    .ticker strong { opacity: 0.9; }
+    .ticker a { opacity: 0.95; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-main {
+      min-height: 72px;
+      display: grid;
+      grid-template-columns: 170px 1fr auto;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -1.2px;
+      color: var(--green);
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--green), #84dc67);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(16, 166, 58, 0.25);
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f2f4f7;
+      border: 1px solid #eaecf0;
+      border-radius: 999px;
+      padding: 5px 6px 5px 18px;
+    }
+
+    .search input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font-size: 15px;
+      min-width: 80px;
+    }
+
+    .btn {
+      border: 0;
+      background: var(--green);
+      color: #fff;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .points-pill {
+      background: var(--green-soft);
+      color: var(--green-dark);
+      border: 1px solid #bfeac9;
+      padding: 9px 12px;
+      border-radius: 999px;
+    }
+
+    .main-nav {
+      border-top: 1px solid var(--line);
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .main-nav::-webkit-scrollbar { display: none; }
+
+    .main-nav .container {
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 900;
+      color: #344054;
+    }
+
+    .main-nav a.active { color: var(--green); }
+
+    .ad {
+      border-radius: var(--radius-lg);
+      border: 1px dashed #d69a20;
+      background: #fff8e6;
+      color: #8a5a00;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .leaderboard-ad {
+      min-height: 96px;
+      margin: 18px 0;
+    }
+
+    .square-ad {
+      aspect-ratio: 1 / 1;
+      min-height: 250px;
+      padding: 16px;
+    }
+
+    .mobile-ad { min-height: 64px; margin: 14px 0; display: none; }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr) 300px;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .card,
+    .panel,
+    .hero-card,
+    .color-link,
+    .story-card,
+    .campaign-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card {
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-art {
+      flex: 1;
+      min-height: 245px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.55), transparent 28%),
+        linear-gradient(135deg, #067328, #10a63a 60%, #86dc65);
+      position: relative;
+    }
+
+    .hero-art::after {
+      content: "Main Feature";
+      position: absolute;
+      left: 20px;
+      bottom: 18px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .hero-body { padding: 20px; }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(30px, 3.2vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -1.4px;
+      margin-bottom: 10px;
+    }
+
+    .muted { color: var(--muted); line-height: 1.55; }
+
+    .top-panel { padding: 18px; }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2 { margin: 0; font-size: 22px; letter-spacing: -0.5px; }
+    .section-title a { color: var(--green); font-size: 13px; font-weight: 900; }
+
+    .story-list { display: grid; gap: 12px; }
+
+    .story-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .story-row:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    .thumb {
+      min-height: 66px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #d9f6df, #b7eac4);
+    }
+
+    .story-row h3 { font-size: 15px; line-height: 1.32; margin-bottom: 6px; }
+    .meta { color: var(--muted); font-size: 12px; }
+
+    .right-rail {
+      display: grid;
+      gap: 18px;
+    }
+
+    .member-box {
+      padding: 18px;
+      background: linear-gradient(180deg, #ffffff, #f0fbf3);
+    }
+
+    .member-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .stat {
+      border: 1px solid #d7f0dc;
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .stat strong { display: block; color: var(--green-dark); font-size: 22px; }
+    .stat span { color: var(--muted); font-size: 12px; }
+
+    .quick-link-section {
+      margin: 22px 0 28px;
+    }
+
+    .quick-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .quick-title h2 { margin: 0; font-size: 24px; }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 12px;
+    }
+
+    .color-link {
+      min-height: 112px;
+      box-shadow: none;
+      border: 1px solid rgba(16, 24, 40, 0.06);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .color-link:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .color-link strong { font-size: 16px; line-height: 1.2; }
+    .color-link span { color: #475467; font-size: 12px; line-height: 1.3; }
+    .color-link.news { background: var(--blue); }
+    .color-link.lottery { background: var(--yellow); }
+    .color-link.horoscope { background: var(--purple); }
+    .color-link.entertainment { background: var(--pink); }
+    .color-link.sports { background: var(--teal); }
+    .color-link.food { background: #fff4e8; }
+    .color-link.travel { background: #eaf7ff; }
+    .color-link.shopping { background: #ecfff2; }
+
+    .section { margin: 28px 0; }
+
+    .module {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+      border-left: 6px solid var(--green);
+      padding-left: 12px;
+    }
+
+    .module-header h2 { margin: 0; font-size: 24px; letter-spacing: -0.6px; }
+    .module-header a { color: var(--green); font-size: 13px; font-weight: 900; }
+
+    .module-header.entertainment { border-color: #f06292; }
+    .module-header.horoscope { border-color: #8b5cf6; }
+    .module-header.lifestyle { border-color: #f59e0b; }
+    .module-header.sports { border-color: #14b8a6; }
+    .module-header.shopping { border-color: #22c55e; }
+    .module-header.video { border-color: #ef4444; }
+
+    .content-with-ad {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .story-card {
+      box-shadow: none;
+      border: 1px solid var(--line);
+    }
+
+    .story-card .thumb {
+      min-height: 132px;
+      border-radius: 0;
+    }
+
+    .story-card-body { padding: 14px; }
+    .story-card h3 { font-size: 16px; line-height: 1.34; margin-bottom: 8px; }
+
+    .feature-plus-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 16px;
+    }
+
+    .big-feature {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .big-feature .thumb { min-height: 220px; border-radius: 0; }
+    .big-feature-body { padding: 16px; }
+    .big-feature h3 { font-size: 22px; line-height: 1.25; margin-bottom: 8px; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #344054;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-weight: 900;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .tab.active { background: var(--green); border-color: var(--green); color: #fff; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .tool-box {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      padding: 18px;
+      background: #fff;
+    }
+
+    .tool-box.lottery { background: var(--yellow); }
+    .tool-box.horoscope { background: var(--purple); }
+    .tool-value {
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--green-dark);
+      letter-spacing: -1px;
+    }
+
+    .shopping-row {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .shop-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .shop-card .thumb {
+      min-height: 110px;
+      border-radius: 0;
+      background: linear-gradient(135deg, #fff1c2, #d8f7d5);
+    }
+
+    .shop-card-body { padding: 12px; font-weight: 900; line-height: 1.35; font-size: 14px; }
+
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .campaign-card {
+      box-shadow: none;
+      border: 1px solid var(--line);
+      padding: 18px;
+    }
+
+    .footer {
+      margin-top: 38px;
+      padding: 34px 0 92px;
+      background: #0f172a;
+      color: #d0d5dd;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .footer h3, .footer h4 { color: #fff; }
+    .footer a { display: block; margin: 8px 0; color: #d0d5dd; font-size: 14px; }
+
+    .bottom-nav { display: none; }
+
+    @media (max-width: 1120px) {
+      .hero-layout { grid-template-columns: 1fr 1fr; }
+      .right-rail { grid-column: 1 / -1; grid-template-columns: 1fr 300px; }
+      .color-grid { grid-template-columns: repeat(4, 1fr); }
+      .card-grid { grid-template-columns: repeat(3, 1fr); }
+      .shopping-row { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 860px) {
+      .utility-date { display: none; }
+      .header-main { grid-template-columns: 1fr auto; gap: 12px; padding: 12px 0; }
+      .logo { font-size: 24px; }
+      .logo-mark { width: 34px; height: 34px; }
+      .search { grid-column: 1 / -1; order: 3; }
+      .login-link { display: none; }
+      .hero-layout, .right-rail, .content-with-ad, .feature-plus-list, .two-col, .footer-grid { grid-template-columns: 1fr; }
+      .leaderboard-ad { display: none; }
+      .mobile-ad { display: grid; }
+      .square-ad { min-height: 220px; width: min(300px, 100%); justify-self: center; }
+      .hero-card { min-height: auto; }
+      .hero-art { min-height: 210px; }
+      h1 { font-size: 30px; }
+      .color-grid { grid-template-columns: repeat(4, minmax(112px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
+      .color-link { min-width: 112px; min-height: 104px; }
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+      .shopping-row { display: flex; overflow-x: auto; padding-bottom: 4px; }
+      .shop-card { min-width: 160px; }
+      .campaign-grid { grid-template-columns: 1fr; }
+      .bottom-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 80;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        background: #fff;
+        border-top: 1px solid var(--line);
+        box-shadow: 0 -8px 24px rgba(16, 24, 40, 0.08);
+      }
+      .bottom-nav a { padding: 9px 4px 8px; text-align: center; font-size: 11px; color: #475467; font-weight: 900; }
+      .bottom-nav a.active { color: var(--green); }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: min(100% - 24px, var(--max)); }
+      .btn { padding: 9px 12px; }
+      .main-nav .container { gap: 18px; min-height: 42px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .tool-grid { grid-template-columns: 1fr; }
+      .story-row { grid-template-columns: 74px 1fr; }
+      .member-stats { grid-template-columns: 1fr 1fr; }
+      .module { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="utility-bar">
+    <div class="container utility-inner">
+      <div class="ticker">
+        <strong>Trending:</strong>
+        <a href="#">World Cup 2026</a>
+        <a href="#">Thai Lottery</a>
+        <a href="#">Daily Horoscope</a>
+        <a href="#">Gold Price</a>
+        <a href="#">Travel Deals</a>
+        <a href="#">Celebrity News</a>
+      </div>
+      <div class="utility-date">Bangkok · Monday, May 25</div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-main">
+      <a href="#" class="logo" aria-label="Kapook Home">
+        <span class="logo-mark">K</span>
+        <span>kapook</span>
+      </a>
+      <form class="search">
+        <input type="search" placeholder="Search news, lottery, horoscope, football, movies..." />
+        <button class="btn" type="submit">Search</button>
+      </form>
+      <div class="header-actions">
+        <a class="login-link" href="#">Login</a>
+        <a class="points-pill" href="#">1,240 pts</a>
+      </div>
+    </div>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <div class="container">
+        <a class="active" href="#">Home</a>
+        <a href="#">News</a>
+        <a href="#">Lottery</a>
+        <a href="#">Horoscope</a>
+        <a href="#">Entertainment</a>
+        <a href="#">Football</a>
+        <a href="#">Movies</a>
+        <a href="#">Music</a>
+        <a href="#">Food</a>
+        <a href="#">Travel</a>
+        <a href="#">Home</a>
+        <a href="#">Auto</a>
+        <a href="#">Health</a>
+        <a href="#">Tech</a>
+        <a href="#">Shopping</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="ad leaderboard-ad">Top Leaderboard Ad · 970x90 / 970x250 · Premium homepage inventory</div>
+      <div class="ad mobile-ad">Mobile Top Ad · 320x100</div>
+
+      <section class="hero-layout">
+        <article class="hero-card">
+          <div class="hero-art"></div>
+          <div class="hero-body">
+            <span class="eyebrow">Today Focus</span>
+            <h1>A cleaner Kapook homepage for news, entertainment, tools, rewards and commerce.</h1>
+            <p class="muted">The homepage is redesigned as a shorter portal: strong first screen, fixed ad rhythm, eight shortcut blocks, channel color modules and mobile-first browsing.</p>
+          </div>
+        </article>
+
+        <aside class="panel top-panel">
+          <div class="section-title">
+            <h2>Top Issues</h2>
+            <a href="#">View all</a>
+          </div>
+          <div class="story-list">
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Football World Cup 2026 content hub and commercial packages</h3><div class="meta">Sports · 12 min ago</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Thai lottery tools remain a high-frequency traffic driver</h3><div class="meta">Lottery · 28 min ago</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Celebrity and drama stories continue to lead social engagement</h3><div class="meta">Entertainment · 42 min ago</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Gold price, weather and daily utility links improve return visits</h3><div class="meta">Utility · 1 hr ago</div></div></a>
+          </div>
+        </aside>
+
+        <aside class="right-rail">
+          <section class="card member-box">
+            <span class="eyebrow">Member Zone</span>
+            <h2>Daily rewards</h2>
+            <p class="muted">Membership is visible from the homepage: points, daily tasks, brand missions and rewards.</p>
+            <div class="member-stats">
+              <div class="stat"><strong>1,240</strong><span>Points</span></div>
+              <div class="stat"><strong>3</strong><span>Tasks</span></div>
+            </div>
+            <a href="#" class="btn">Start Missions</a>
+          </section>
+          <div class="ad square-ad">Square Ad · 300x300 / 300x250 · Right rail inventory</div>
+        </aside>
+      </section>
+
+      <section class="quick-link-section">
+        <div class="quick-title">
+          <div>
+            <h2>Quick Access</h2>
+            <p class="muted" style="margin: 6px 0 0;">Eight high-frequency homepage shortcuts, inspired by Kapook’s current multi-channel portal behavior.</p>
+          </div>
+        </div>
+        <div class="color-grid">
+          <a class="color-link news" href="#"><strong>News</strong><span>Breaking & hot issues</span></a>
+          <a class="color-link lottery" href="#"><strong>Lottery</strong><span>Results & lucky numbers</span></a>
+          <a class="color-link horoscope" href="#"><strong>Horoscope</strong><span>Daily zodiac & tarot</span></a>
+          <a class="color-link entertainment" href="#"><strong>Entertainment</strong><span>Celebrity & drama</span></a>
+          <a class="color-link sports" href="#"><strong>Football</strong><span>Scores & World Cup</span></a>
+          <a class="color-link food" href="#"><strong>Food</strong><span>Recipes & restaurants</span></a>
+          <a class="color-link travel" href="#"><strong>Travel</strong><span>Trips & guides</span></a>
+          <a class="color-link shopping" href="#"><strong>Shopping</strong><span>Coupons & picks</span></a>
+        </div>
+      </section>
+
+      <section class="section content-with-ad">
+        <div class="module">
+          <div class="module-header">
+            <h2>Top Stories</h2>
+            <a href="#">More stories</a>
+          </div>
+          <div class="card-grid">
+            <article class="story-card"><div class="thumb"></div><div class="story-card-body"><span class="eyebrow">News</span><h3>Compact cards shorten the homepage without hiding important content.</h3><div class="meta">3 min read</div></div></article>
+            <article class="story-card"><div class="thumb"></div><div class="story-card-body"><span class="eyebrow">Hot</span><h3>Trending tags make the homepage more scannable and SEO-friendly.</h3><div class="meta">Trending</div></div></article>
+            <article class="story-card"><div class="thumb"></div><div class="story-card-body"><span class="eyebrow">Utility</span><h3>Weather, gold price and lottery links can sit near daily news.</h3><div class="meta">Daily service</div></div></article>
+            <article class="story-card"><div class="thumb"></div><div class="story-card-body"><span class="eyebrow">Social</span><h3>Social buzz connects Facebook, TikTok and YouTube traffic back to site.</h3><div class="meta">Social</div></div></article>
+          </div>
+        </div>
+        <div class="ad square-ad">Square Ad · 300x300 · After first content module</div>
+      </section>
+
+      <section class="section two-col">
+        <div class="module">
+          <div class="module-header horoscope">
+            <h2>Lottery & Horoscope</h2>
+            <a href="#">Open tools</a>
+          </div>
+          <div class="tool-grid">
+            <div class="tool-box lottery"><h3>Lottery</h3><p class="muted">Latest results, lucky numbers and statistics.</p><div class="tool-value">LIVE</div></div>
+            <div class="tool-box horoscope"><h3>Horoscope</h3><p class="muted">Daily zodiac, tarot and personality content.</p><div class="tool-value">12</div></div>
+          </div>
+        </div>
+        <div class="module">
+          <div class="module-header entertainment">
+            <h2>Entertainment</h2>
+            <a href="#">View all</a>
+          </div>
+          <div class="story-list">
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Celebrity news and drama stories in a high-density list</h3><div class="meta">Celebrity</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Movies, music and series updates grouped under one module</h3><div class="meta">Movies & Music</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Korean entertainment can be treated as a sub-channel</h3><div class="meta">K-Entertainment</div></div></a>
+          </div>
+        </div>
+      </section>
+
+      <div class="ad leaderboard-ad">Mid-page Native / Campaign Ad · clear position between content modules</div>
+      <div class="ad mobile-ad">Mobile In-feed Ad · 320x100</div>
+
+      <section class="section module">
+        <div class="module-header lifestyle">
+          <h2>Lifestyle Channels</h2>
+          <a href="#">View all</a>
+        </div>
+        <div class="tabs">
+          <button class="tab active">Food</button>
+          <button class="tab">Travel</button>
+          <button class="tab">Home</button>
+          <button class="tab">Auto</button>
+          <button class="tab">Health</button>
+          <button class="tab">Tech</button>
+          <button class="tab">Women</button>
+          <button class="tab">Men</button>
+        </div>
+        <div class="feature-plus-list">
+          <article class="big-feature">
+            <div class="thumb"></div>
+            <div class="big-feature-body">
+              <span class="eyebrow">Lifestyle Feature</span>
+              <h3>Use tabs to avoid making the homepage too long.</h3>
+              <p class="muted">Food, travel, home, auto, health and tech can live in one controlled module instead of becoming separate long sections.</p>
+            </div>
+          </article>
+          <div class="story-list">
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Easy recipes and restaurant guides</h3><div class="meta">Food</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Domestic and outbound travel ideas</h3><div class="meta">Travel</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Home decoration, garden and condo topics</h3><div class="meta">Home</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Auto, health, tech, women and men topics</h3><div class="meta">More lifestyle</div></div></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section content-with-ad">
+        <div class="module">
+          <div class="module-header sports">
+            <h2>Football & Sports</h2>
+            <a href="#">Sports hub</a>
+          </div>
+          <div class="card-grid">
+            <article class="story-card"><div class="thumb"></div><div class="story-card-body"><span class="eyebrow">Football</span><h3>Live scores and football news remain high-frequency tools.</h3><div class="meta">Scores</div></div></article>
+            <article class="story-card"><div class="thumb"></div><div class="story-card-body"><span class="eyebrow">World Cup</span><h3>World Cup hub supports sponsors, FMCG and telecom advertisers.</h3><div class="meta">2026</div></div></article>
+            <article class="story-card"><div class="thumb"></div><div class="story-card-body"><span class="eyebrow">F1</span><h3>F1 can become a premium sports-interest vertical.</h3><div class="meta">Racing</div></div></article>
+            <article class="story-card"><div class="thumb"></div><div class="story-card-body"><span class="eyebrow">Running</span><h3>Running events connect online content with offline activation.</h3><div class="meta">Community</div></div></article>
+          </div>
+        </div>
+        <div class="ad square-ad">Square Ad · Sports sponsor / event package</div>
+      </section>
+
+      <section class="section module">
+        <div class="module-header shopping">
+          <h2>Kapook Picks</h2>
+          <a href="#">Shop more</a>
+        </div>
+        <div class="tabs">
+          <button class="tab active">Coupons</button>
+          <button class="tab">Flash Sales</button>
+          <button class="tab">Special Offers</button>
+          <button class="tab">Beauty</button>
+          <button class="tab">Fashion</button>
+          <button class="tab">Pets</button>
+          <button class="tab">Food</button>
+          <button class="tab">Electronics</button>
+        </div>
+        <div class="shopping-row">
+          <a class="shop-card" href="#"><div class="thumb"></div><div class="shop-card-body">Daily coupon picks</div></a>
+          <a class="shop-card" href="#"><div class="thumb"></div><div class="shop-card-body">Beauty deals</div></a>
+          <a class="shop-card" href="#"><div class="thumb"></div><div class="shop-card-body">Electronics offers</div></a>
+          <a class="shop-card" href="#"><div class="thumb"></div><div class="shop-card-body">Pet products</div></a>
+          <a class="shop-card" href="#"><div class="thumb"></div><div class="shop-card-body">Sports gear</div></a>
+        </div>
+      </section>
+
+      <section class="section two-col">
+        <div class="module">
+          <div class="module-header video">
+            <h2>Video & Social Buzz</h2>
+            <a href="#">Watch more</a>
+          </div>
+          <div class="story-list">
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Short video and creator content for mobile-first users</h3><div class="meta">Video</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Social stories selected by engagement potential</h3><div class="meta">Social Buzz</div></div></a>
+            <a class="story-row" href="#"><div class="thumb"></div><div><h3>Creator partnerships can be promoted as curated content</h3><div class="meta">Creator</div></div></a>
+          </div>
+        </div>
+        <div class="ad square-ad">Square Ad · Video / native sponsorship</div>
+      </section>
+
+      <section class="section module">
+        <div class="module-header">
+          <h2>Brand Missions</h2>
+          <a href="#">See all missions</a>
+        </div>
+        <div class="campaign-grid">
+          <article class="campaign-card"><span class="eyebrow">Mission</span><h3>Read & Earn</h3><p class="muted">Users read sponsor content and receive Kapook points after task completion.</p><a class="btn" href="#">Join</a></article>
+          <article class="campaign-card"><span class="eyebrow">Survey</span><h3>Answer & Earn</h3><p class="muted">Brand survey campaigns create measurable leads beyond display ads.</p><a class="btn" href="#">Start</a></article>
+          <article class="campaign-card"><span class="eyebrow">Event</span><h3>Predict & Win</h3><p class="muted">Sports and entertainment campaigns drive repeat visits and sharing.</p><a class="btn" href="#">Play</a></article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>kapook</h3>
+        <p>Homepage concept: shorter, modular, square-ad ready, channel-colored and mobile-first.</p>
+      </div>
+      <div>
+        <h4>Channels</h4>
+        <a href="#">News</a>
+        <a href="#">Lottery</a>
+        <a href="#">Horoscope</a>
+        <a href="#">Entertainment</a>
+      </div>
+      <div>
+        <h4>Lifestyle</h4>
+        <a href="#">Food</a>
+        <a href="#">Travel</a>
+        <a href="#">Home</a>
+        <a href="#">Auto</a>
+      </div>
+      <div>
+        <h4>Business</h4>
+        <a href="#">Advertise</a>
+        <a href="#">Brand Missions</a>
+        <a href="#">Kapook Picks</a>
+        <a href="#">Partnerships</a>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="bottom-nav" aria-label="Mobile bottom navigation">
+    <a class="active" href="#">Home</a>
+    <a href="#">Hot</a>
+    <a href="#">Lottery</a>
+    <a href="#">Points</a>
+    <a href="#">Menu</a>
+  </nav>
+</body>
+</html>
